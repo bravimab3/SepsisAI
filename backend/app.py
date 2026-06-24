@@ -4,7 +4,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from pathlib import Path
-
+from flask import send_from_directory
 
 
 app = Flask(__name__)
@@ -44,7 +44,9 @@ print("FEATURES:", feature_columns)
 # ============================
 # Home
 # ============================
-
+@app.route("/")
+def home():
+    return send_from_directory("../frontend", "index.html")
 
 @app.route("/predict", methods=["POST"])
 def predict():
