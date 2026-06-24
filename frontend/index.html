@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | SepsisAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#faf8ff] text-[#1a1b21] flex h-screen overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-72 border-r border-[#c4c6cf] bg-[#f2f3ff] flex flex-col p-6 h-full transition-transform duration-300 md:translate-x-0">
+        <div class="mb-10">
+            <h1 class="text-2xl font-bold text-[#0d9488]">SepsisAI</h1>
+            <p class="text-xs text-[#44464f] uppercase tracking-wider font-semibold mt-1">Clinical Decision Support</p>
+        </div>
+
+        <nav class="flex-1 space-y-2">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-lg active-nav-link">
+                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                <span class="text-sm">Dashboard</span>
+            </a>
+            <a href="prediction.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#44464f] hover:bg-[#e2e2ec] transition-colors">
+                <i data-lucide="activity" class="w-5 h-5"></i>
+                <span class="text-sm">Patient Prediction</span>
+            </a>
+        </nav>
+
+        <div class="pt-6 border-t border-[#c4c6cf] space-y-2">
+            <a href="#" class="flex items-center gap-3 px-4 py-2 text-[#44464f] text-sm hover:text-[#0d9488]">
+                <i data-lucide="help-circle" class="w-5 h-5"></i>
+                Support
+            </a>
+            <a href="login.html" class="flex items-center gap-3 px-4 py-2 text-[#44464f] text-sm hover:text-error">
+                <i data-lucide="log-out" class="w-5 h-5"></i>
+                Sign Out
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Header -->
+        <header class="h-16 border-b border-[#c4c6cf] bg-white flex items-center justify-between px-8">
+            <div class="flex items-center gap-4">
+                <button id="menuToggle" class="md:hidden text-[#44464f]">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                    <a href="index.html" class="text-[#0d9488] border-b-2 border-[#0d9488] pb-5 translate-y-[2px]">Dashboard</a>
+                    <a href="prediction.html" class="text-[#44464f] hover:text-[#0d9488]">Patient Prediction</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="p-2 text-[#44464f] hover:bg-[#f2f3ff] rounded-full relative">
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-[#ba1a1a] rounded-full border-2 border-white"></span>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-[#d2f4f1] border border-[#0d9488] flex items-center justify-center text-[#0d9488] font-bold text-xs">
+                    DR
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="flex-1 overflow-y-auto p-8">
+            <!-- Hero Welcome -->
+            <div class="bg-white border border-[#c4c6cf] rounded-2xl p-8 mb-8">
+                <span class="text-xs font-bold text-[#0d9488] uppercase tracking-widest mb-2 block">System Status: Active</span>
+                <h2 class="text-3xl font-extrabold text-[#1a1b21] mb-3">Early Sepsis Detection</h2>
+                <p class="text-[#44464f] max-w-2xl leading-relaxed">
+                    XGBoost-based ICU risk prediction system analyzing patient time-series data for early sepsis warning. 
+                    Leveraging high-frequency clinical markers to provide real-time decision support.
+                </p>
+                <div class="flex gap-4 mt-8">
+                    <a href="prediction.html" class="bg-[#0d9488] text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-all flex items-center gap-2">
+                        New Assessment
+                    </a>
+                    <button class="border border-[#c4c6cf] px-6 py-3 rounded-lg font-semibold text-[#1a1b21] hover:bg-[#faf8ff] transition-all">
+                        Documentation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white border border-[#c4c6cf] p-6 rounded-xl">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest">Performance</span>
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 text-[#44464f]"></i>
+                    </div>
+                    <div class="text-3xl font-bold">0.76</div>
+                    <div class="text-xs text-[#44464f] mt-1">ROC-AUC Score</div>
+                </div>
+                <div class="bg-white border border-[#c4c6cf] p-6 rounded-xl">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest">Algorithm</span>
+                        <i data-lucide="cpu" class="w-4 h-4 text-[#44464f]"></i>
+                    </div>
+                    <div class="text-2xl font-bold">XGBoost</div>
+                    <div class="flex gap-2 mt-1">
+                        <span class="px-2 py-0.5 bg-[#f2f3ff] text-[8px] font-bold rounded uppercase">Tree-Based</span>
+                        <span class="px-2 py-0.5 bg-[#f2f3ff] text-[8px] font-bold rounded uppercase">Gradient</span>
+                    </div>
+                </div>
+                <div class="bg-white border border-[#c4c6cf] p-6 rounded-xl">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest">Source</span>
+                        <i data-lucide="database" class="w-4 h-4 text-[#44464f]"></i>
+                    </div>
+                    <div class="text-2xl font-bold">ICU Data</div>
+                    <div class="text-[10px] text-[#44464f] mt-1 flex items-center gap-1">
+                        <i data-lucide="refresh-cw" class="w-3 h-3"></i> Sync: 12m ago
+                    </div>
+                </div>
+                <div class="bg-white border border-[#c4c6cf] p-6 rounded-xl">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest">Scaling</span>
+                        <i data-lucide="layers" class="w-4 h-4 text-[#44464f]"></i>
+                    </div>
+                    <div class="text-xl font-bold">Feature Eng.</div>
+                    <div class="text-[10px] text-[#0d9488] mt-1 flex items-center gap-1">
+                        <i data-lucide="check-circle" class="w-3 h-3"></i> Processed
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Patient Table -->
+                <div class="lg:col-span-2 bg-white border border-[#c4c6cf] rounded-2xl overflow-hidden flex flex-col">
+                    <div class="p-6 border-b border-[#c4c6cf] flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-lg">Active Patient Risk Monitoring</h3>
+                            <p class="text-xs text-[#44464f]">Real-time XGBoost risk scores for ICU Ward A</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="p-2 border border-[#c4c6cf] rounded-lg text-[#44464f] hover:bg-[#faf8ff]">
+                                <i data-lucide="filter" class="w-4 h-4"></i>
+                            </button>
+                            <button class="p-2 border border-[#c4c6cf] rounded-lg text-[#44464f] hover:bg-[#faf8ff]">
+                                <i data-lucide="search" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-[#faf8ff] text-[10px] font-bold text-[#44464f] uppercase tracking-widest border-b border-[#c4c6cf]">
+                                <tr>
+                                    <th class="px-6 py-4">Patient ID</th>
+                                    <th class="px-6 py-4">Risk Level</th>
+                                    <th class="px-6 py-4">Sepsis Prob.</th>
+                                    <th class="px-6 py-4">Vitals Trend</th>
+                                    <th class="px-6 py-4 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-[#c4c6cf]">
+                                <tr class="hover:bg-[#f2f3ff] transition-colors">
+                                    <td class="px-6 py-4 font-mono text-sm">#PA-7281</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 bg-[#fde8e8] text-[#ba1a1a] text-[10px] font-bold rounded uppercase">Critical</span>
+                                    </td>
+                                    <td class="px-6 py-4 font-bold">89.4%</td>
+                                    <td class="px-6 py-4">
+                                        <i data-lucide="trending-up" class="w-4 h-4 text-[#ba1a1a]"></i>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <a href="prediction.html" class="text-[#0d9488] text-xs font-bold hover:underline">View Vitals</a>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-[#f2f3ff] transition-colors">
+                                    <td class="px-6 py-4 font-mono text-sm">#PA-3392</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 bg-[#fff8e1] text-[#f59e0b] text-[10px] font-bold rounded uppercase">Moderate</span>
+                                    </td>
+                                    <td class="px-6 py-4 font-bold">42.1%</td>
+                                    <td class="px-6 py-4">
+                                        <i data-lucide="arrow-right" class="w-4 h-4 text-[#f59e0b]"></i>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <a href="prediction.html" class="text-[#0d9488] text-xs font-bold hover:underline">View Vitals</a>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-[#f2f3ff] transition-colors">
+                                    <td class="px-6 py-4 font-mono text-sm">#PA-1102</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 bg-[#ecfdf5] text-[#0d9488] text-[10px] font-bold rounded uppercase">Low</span>
+                                    </td>
+                                    <td class="px-6 py-4 font-bold">12.5%</td>
+                                    <td class="px-6 py-4">
+                                        <i data-lucide="trending-down" class="w-4 h-4 text-[#0d9488]"></i>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <a href="prediction.html" class="text-[#0d9488] text-xs font-bold hover:underline">View Vitals</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CTA Module -->
+                <div class="bg-white border border-[#c4c6cf] rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-sm">
+                    <div class="w-16 h-16 rounded-full bg-[#faf8ff] border border-[#c4c6cf] flex items-center justify-center mb-6">
+                        <i data-lucide="heart-pulse" class="w-8 h-8 text-[#0d9488]"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">New Risk Assessment</h3>
+                    <p class="text-sm text-[#44464f] mb-8 max-w-[240px]">Ready to evaluate a new patient? Launch the clinical prediction tool for real-time risk analysis.</p>
+                    <a href="prediction.html" class="w-full bg-[#1a1b21] text-white py-4 rounded-xl font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="play-circle" class="w-5 h-5"></i>
+                        Run Risk Prediction
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="h-12 border-t border-[#c4c6cf] bg-white px-8 flex items-center justify-between text-[10px] text-[#44464f] font-medium">
+            <div>© 2024 SepsisAI. Built using XGBoost Machine Learning and ICU Time-Series Data.</div>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-[#0d9488]">Privacy Policy</a>
+                <a href="#" class="hover:text-[#0d9488]">Terms of Service</a>
+                <a href="#" class="hover:text-[#0d9488]">Clinical Validation</a>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

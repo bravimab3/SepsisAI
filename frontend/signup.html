@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Clinical Network | SepsisAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#faf8ff] text-[#1a1b21] min-h-screen flex flex-col items-center py-20 px-6">
+
+    <header class="w-full max-w-6xl flex justify-between items-center mb-16 px-4">
+        <h1 class="text-2xl font-bold text-[#0d9488]">SepsisAI</h1>
+        <div class="flex gap-8 text-[10px] font-bold text-[#44464f] uppercase tracking-widest">
+            <a href="#" class="hover:text-[#0d9488]">Clinical Validation</a>
+            <a href="#" class="hover:text-[#0d9488]">HIPAA Compliance</a>
+            <a href="login.html" class="text-[#1a1b21] hover:underline">Sign In</a>
+        </div>
+    </header>
+
+    <div class="text-center mb-12">
+        <h2 class="text-5xl font-black mb-4">Join the Clinical Network</h2>
+        <p class="text-[#44464f] max-w-lg mx-auto">Register your verified provider account to access real-time sepsis surveillance and predictive diagnostics.</p>
+    </div>
+
+    <div class="w-full max-w-3xl bg-white border border-[#c4c6cf] rounded-[40px] p-12 shadow-xl mb-12">
+        <form action="login.html" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest ml-1">Full Name</label>
+                <input type="text" placeholder="Dr. Jane Smith" required class="w-full h-14 bg-[#faf8ff] border border-[#c4c6cf] rounded-xl px-4 outline-none focus:ring-2 focus:ring-[#0d9488] transition-all">
+            </div>
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest ml-1">Hospital Email</label>
+                <input type="email" placeholder="jsmith@medcenter.org" required class="w-full h-14 bg-[#faf8ff] border border-[#c4c6cf] rounded-xl px-4 outline-none focus:ring-2 focus:ring-[#0d9488] transition-all">
+            </div>
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest ml-1">Hospital Name</label>
+                <input type="text" placeholder="Central General Hospital" required class="w-full h-14 bg-[#faf8ff] border border-[#c4c6cf] rounded-xl px-4 outline-none focus:ring-2 focus:ring-[#0d9488] transition-all">
+            </div>
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest ml-1">Department/Specialty</label>
+                <select class="w-full h-14 bg-[#faf8ff] border border-[#c4c6cf] rounded-xl px-4 outline-none focus:ring-2 focus:ring-[#0d9488] transition-all appearance-none">
+                    <option>Select Specialty</option>
+                    <option>Intensive Care (ICU)</option>
+                    <option>Emergency Medicine</option>
+                    <option>Internal Medicine</option>
+                </select>
+            </div>
+            <div class="md:col-span-2 space-y-2">
+                <label class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest ml-1">License Number (NPI)</label>
+                <div class="relative">
+                    <input type="text" placeholder="10-digit NPI number" required class="w-full h-14 bg-[#faf8ff] border border-[#c4c6cf] rounded-xl px-4 outline-none focus:ring-2 focus:ring-[#0d9488] transition-all">
+                    <i data-lucide="shield-check" class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#c4c6cf]"></i>
+                </div>
+                <p class="text-[8px] text-[#44464f] mt-1 ml-1">Automatic credential verification will be performed via the NPPES Registry.</p>
+            </div>
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest ml-1">Password</label>
+                <input type="password" placeholder="••••••••" required class="w-full h-14 bg-[#faf8ff] border border-[#c4c6cf] rounded-xl px-4 outline-none focus:ring-2 focus:ring-[#0d9488] transition-all">
+            </div>
+            <div class="space-y-2">
+                <label class="text-[10px] font-bold text-[#44464f] uppercase tracking-widest ml-1">Confirm Password</label>
+                <input type="password" placeholder="••••••••" required class="w-full h-14 bg-[#faf8ff] border border-[#c4c6cf] rounded-xl px-4 outline-none focus:ring-2 focus:ring-[#0d9488] transition-all">
+            </div>
+
+            <div class="md:col-span-2 pt-4">
+                <button type="submit" class="w-full h-16 bg-white border border-[#c4c6cf] text-[#1a1b21] rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-[#faf8ff] transition-all">
+                    Register Clinical Account <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+                <p class="text-center text-xs text-[#44464f] mt-6">Already have an account? <a href="login.html" class="font-bold text-[#1a1b21] hover:underline">Sign In</a></p>
+            </div>
+        </form>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mb-20">
+        <div class="bg-white border border-[#c4c6cf] rounded-3xl p-10 flex flex-col md:flex-row gap-8 items-start">
+            <div class="flex-1">
+                <h3 class="text-2xl font-bold mb-4">Institutional Access Request</h3>
+                <p class="text-sm text-[#44464f] mb-6">Looking to implement SepsisAI across your entire hospital network? Our Enterprise solution offers EHR integration (Epic/Cerner).</p>
+                <button class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:text-[#0d9488]">
+                    <i data-lucide="layout-grid" class="w-4 h-4"></i> Request Institutional Demo
+                </button>
+            </div>
+            <div class="w-24 h-24 bg-[#f2f3ff] rounded-2xl flex items-center justify-center shrink-0">
+                <i data-lucide="network" class="w-12 h-12 text-[#0d9488]"></i>
+            </div>
+        </div>
+        <div class="bg-white border border-[#c4c6cf] rounded-3xl p-10 flex flex-col items-center text-center">
+            <div class="w-12 h-12 bg-[#faf8ff] border border-[#c4c6cf] rounded-xl flex items-center justify-center mb-6">
+                <i data-lucide="lock" class="w-6 h-6 text-[#0d9488]"></i>
+            </div>
+            <h4 class="text-lg font-bold mb-2">HIPAA Secure</h4>
+            <p class="text-xs text-[#44464f]">All data encrypted in transit and at rest with BAA agreements available for enterprise clients.</p>
+        </div>
+    </div>
+
+    <footer class="w-full max-w-6xl border-t border-[#c4c6cf] pt-12 pb-20 flex flex-col md:flex-row justify-between items-center px-4">
+        <div>
+            <h5 class="text-xl font-bold text-[#1a1b21] mb-2">SepsisAI</h5>
+            <p class="text-[10px] text-[#44464f]">© 2024 SepsisAI Clinical AI. HIPAA Compliant Platform.</p>
+        </div>
+        <div class="flex gap-8 text-[10px] font-bold text-[#44464f] uppercase tracking-widest mt-8 md:mt-0">
+            <a href="#" class="hover:text-[#0d9488]">Clinical Validation</a>
+            <a href="#" class="hover:text-[#0d9488]">Privacy Policy</a>
+            <a href="#" class="hover:text-[#0d9488]">HIPAA Compliance</a>
+            <a href="#" class="hover:text-[#0d9488]">Contact Support</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

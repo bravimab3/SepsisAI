@@ -1,0 +1,57 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #0d9488;
+  --on-primary: #ffffff;
+  --secondary-container: #d2f4f1;
+  --on-secondary-container: #00201e;
+  --surface: #faf8ff;
+  --on-surface: #1a1b21;
+  --on-surface-variant: #44464f;
+  --outline: #74777f;
+  --outline-variant: #c4c6cf;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f2f3ff;
+  --surface-container-high: #e2e2ec;
+  --surface-dim: #d2d9f4;
+  --error: #ba1a1a;
+  --warning: #f59e0b;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--surface);
+  color: var(--on-surface);
+}
+
+/* Sidebar Active State */
+.active-nav-link {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  font-weight: 600;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--outline-variant);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--outline);
+}
+
+/* Vitals Trend Animations */
+@keyframes trendUp {
+  0% { transform: translateY(2px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.animate-trend {
+  animation: trendUp 0.5s ease-out forwards;
+}

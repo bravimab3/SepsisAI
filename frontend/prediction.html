@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SepsisAI - Patient Risk Prediction</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#dbe1ff",
+                    "tertiary-fixed-dim": "#bec7d2",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f3ff",
+                    "inverse-surface": "#283044",
+                    "on-secondary-fixed": "#00174b",
+                    "on-primary-fixed-variant": "#005049",
+                    "background": "#faf8ff",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "on-surface": "#131b2e",
+                    "tertiary-container": "#6c767f",
+                    "primary-fixed": "#89f5e7",
+                    "primary-container": "#008378",
+                    "primary": "#00685f",
+                    "inverse-primary": "#6bd8cb",
+                    "on-primary-container": "#f4fffc",
+                    "on-surface-variant": "#3d4947",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d2d9f4",
+                    "surface": "#faf8ff",
+                    "on-primary-fixed": "#00201d",
+                    "tertiary": "#545d66",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#006a61",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#eef0ff",
+                    "secondary": "#0051d5",
+                    "surface-container-highest": "#dae2fd",
+                    "on-background": "#131b2e",
+                    "outline": "#6d7a77",
+                    "surface-container-high": "#e2e7ff",
+                    "surface-container": "#eaedff",
+                    "on-tertiary-fixed-variant": "#3f4850",
+                    "surface-variant": "#dae2fd",
+                    "primary-fixed-dim": "#6bd8cb",
+                    "secondary-container": "#316bf3",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#bcc9c6",
+                    "on-secondary-fixed-variant": "#003ea8",
+                    "on-secondary-container": "#fefcff",
+                    "surface-bright": "#faf8ff",
+                    "on-tertiary-container": "#fcfcff",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#141c24",
+                    "tertiary-fixed": "#dae3ee"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1440px",
+                    "margin-desktop": "40px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "vitals-display": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "vitals-display": ["40px", {"lineHeight": "1", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface font-inter text-on-surface">
+<!-- Top Nav -->
+<nav class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant shadow-sm h-16">
+<div class="flex items-center justify-between px-8 w-full max-w-7xl mx-auto h-full">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold text-primary">SepsisAI</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="index.html">Dashboard</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="prediction.html">Patient Prediction</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors"><i class="w-5 h-5" data-lucide="notifications"></i></button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors"><i class="w-5 h-5" data-lucide="settings"></i></button>
+<img alt="Profile" class="w-8 h-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi5-ltyUjrDZltJeZd8W1B7xuLCQgZt8IdlP_jGckSrxCnGZZMSX-W28TXcOeWenZxJX3IPkFie9Sczcmksv2flwBGa46G1V_EIuNgqtpX9fETAptuXE8pBQv8vHZ1TiXP_m7-MRsgHHjmZCgccQUrSfxGvA5tSuHNStQyCYW2cL-kNrNmEtN0q4pFxqSVXvxvHJNLKv1ltZ85RBAwObzzw32c8r2dbb9mZxKifwMryc-mXqvYNd-ReR0mS0IoVP0v7r1kH4OFXg"/>
+</div>
+</div>
+</nav>
+<div class="flex h-screen pt-16">
+<!-- Sidebar -->
+<aside class="w-[280px] hidden lg:flex flex-col bg-surface-container-low border-r border-outline-variant py-6 px-4">
+<div class="space-y-6 flex-1">
+<div class="space-y-1 px-4 pb-4 border-b border-outline-variant">
+<h2 class="text-lg font-bold text-primary">SepsisAI</h2>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Clinical Decision Support</p>
+</div>
+<button class="w-full px-4 py-2.5 bg-primary text-on-primary font-bold rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2">
+<i class="w-4 h-4" data-lucide="plus"></i> New Assessment
+                </button>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2.5 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="index.html">
+<i class="w-5 h-5" data-lucide="layout-dashboard"></i>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 bg-secondary-container text-on-secondary-container rounded-lg transition-colors" href="prediction.html">
+<i class="w-5 h-5" data-lucide="activity"></i>
+<span class="text-sm font-medium">Patient Prediction</span>
+</a>
+</nav>
+</div>
+<div class="pt-6 border-t border-outline-variant space-y-1">
+
+<a class="flex items-center gap-3 px-4 py-2.5 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="login.html">
+<i class="w-5 h-5" data-lucide="log-out"></i>
+<span class="text-sm font-medium">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Content -->
+<main class="flex-1 overflow-y-auto p-8">
+<form class="max-w-5xl mx-auto space-y-8" id="assessmentForm">
+<header class="flex justify-between items-end">
+<div class="space-y-2">
+<h1 class="text-3xl font-bold text-on-surface">Patient Assessment</h1>
+<p class="text-on-surface-variant">Populate real-time ICU vitals for predictive sepsis screening.</p>
+</div>
+<div class="flex items-center gap-2 text-xs text-on-surface-variant bg-surface-container-low px-4 py-2 rounded-lg border border-outline-variant">
+<i class="w-4 h-4" data-lucide="clock"></i>
+<span>Last assessment: 12m ago</span>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Monitoring Panel -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+<div class="p-6 border-b border-outline-variant flex items-center gap-3">
+<i class="w-5 h-5 text-primary" data-lucide="activity"></i>
+<h3 class="text-lg font-bold">Clinical Monitoring Panel</h3>
+</div>
+<div class="p-8 space-y-8">
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant" for="heart_rate">Heart Rate (BPM)</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 font-mono text-lg focus:ring-2 focus:ring-primary/20 outline-none" id="heart_rate" required="" type="number" value="72"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">BPM</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant" for="temperature">Temperature (°C)</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 font-mono text-lg focus:ring-2 focus:ring-primary/20 outline-none" id="temperature" required="" step="0.1" type="number" value="37.0"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">°C</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant" for="resp_rate">Respiratory Rate</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 font-mono text-lg focus:ring-2 focus:ring-primary/20 outline-none" id="resp_rate" required="" type="number" value="16"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">RR</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant" for="oxygen">Oxygen Saturation (SP02)</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 font-mono text-lg focus:ring-2 focus:ring-primary/20 outline-none" id="oxygen" required="" type="number" value="98"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">%</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Blood Pressure (MMHG)</label>
+<div class="flex items-center gap-4">
+<div class="relative flex-1">
+<input class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 font-mono text-lg outline-none" id="blood_pressure" required="" type="number" value="120"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">Systolic</span>
+</div>
+<span class="text-2xl text-outline-variant">/</span>
+<div class="relative flex-1">
+<input class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 font-mono text-lg outline-none" id="dbp" required="" type="number" value="80"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">Diastolic</span>
+</div>
+</div>
+</div>
+<!-- Calculated Indicators -->
+<div class="grid grid-cols-2 gap-8 pt-4">
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">MAP (Mean Arterial Pressure)</label>
+<div class="h-12 bg-surface-container-low border border-outline-variant rounded-lg px-4 flex items-center justify-between font-mono text-lg text-on-surface-variant">
+<span id="map_value">93.3</span>
+<span class="text-[10px] font-bold uppercase">mmHg</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Shock Index (HR / SBP)</label>
+<div class="h-12 bg-surface-container-low border border-outline-variant rounded-lg px-4 flex items-center justify-between font-mono text-lg text-on-surface-variant">
+<span id="shock_index">0.60</span>
+<span class="text-[10px] font-bold uppercase">Index</span>
+</div>
+</div>
+</div>
+<!-- Advanced Monitoring Panel -->
+<div class="pt-8 border-t border-outline-variant space-y-6">
+<div class="flex items-center gap-3">
+<i class="w-5 h-5 text-primary" data-lucide="clipboard-list"></i>
+<h3 class="text-lg font-bold">Demographics &amp; Logistics</h3>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant" for="age">Age (Years)</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 font-mono text-lg focus:ring-2 focus:ring-primary/20 outline-none" id="age" name="age" placeholder="65" required="" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">Years</span>
+</div>
+<p class="text-[10px] text-on-surface-variant">Patient biological age.</p>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant" for="gender">Gender</label>
+<select class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 text-sm focus:ring-2 focus:ring-primary/20 outline-none appearance-none" id="gender" name="gender" required="">
+<option disabled="" selected="" value="">Select Gender</option>
+<option value="1">Male</option>
+<option value="0">Female</option>
+</select>
+<p class="text-[10px] text-on-surface-variant">Self-identified patient gender.</p>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant" for="iculos">ICU Length of Stay</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 font-mono text-lg focus:ring-2 focus:ring-primary/20 outline-none" id="iculos" name="iculos" placeholder="24" required="" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">Hours</span>
+</div>
+<p class="text-[10px] text-on-surface-variant">Duration since ICU admission.</p>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant" for="hospadmtime">Hosp Admission Time</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 font-mono text-lg focus:ring-2 focus:ring-primary/20 outline-none" id="hospadmtime" name="hospadmtime" placeholder="-6" required="" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">Hours</span>
+</div>
+<p class="text-[10px] text-on-surface-variant">Hours between hospital and ICU admission.</p>
+</div>
+<div class="space-y-2 col-span-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant" for="hour">Current Monitoring Hour</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface border border-outline-variant rounded-lg px-4 font-mono text-lg focus:ring-2 focus:ring-primary/20 outline-none" id="hour" name="hour" placeholder="12" required="" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">Hour #</span>
+</div>
+<p class="text-[10px] text-on-surface-variant">The sequence hour of the current assessment window.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button onclick="runPrediction()" class="w-full flex items-center justify-center gap-3 py-4 bg-primary text-on-primary text-xl font-bold rounded-2xl hover:opacity-90 active:scale-[0.99] transition-all shadow-lg shadow-primary/20" id="predictBtn" type="button">
+<i class="w-6 h-6" data-lucide="zap"></i>
+                            Predict Sepsis Risk
+                        </button>
+</div>
+<!-- Side Panels -->
+<div class="space-y-6">
+<!-- Risk Visualization Card -->
+<div class="bg-surface-container-lowest rounded-2xl border border-error p-8 space-y-8 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-error"></div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 text-error">
+<i class="w-5 h-5" data-lucide="alert-triangle"></i>
+<span
+    id="risk-status"
+    class="text-xs font-bold uppercase tracking-widest"
+>
+    Waiting...
+</span>
+</div>
+<span
+    id="risk-level"
+    class="px-2 py-0.5 bg-error/10 text-error text-[10px] font-bold rounded uppercase"
+>
+    Waiting
+</span>
+</div>
+<!-- Circular Progress -->
+<div class="relative flex items-center justify-center py-4">
+<svg class="w-48 h-48 transform -rotate-90">
+<circle class="text-surface-container-low" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-error transition-all duration-1000" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.92" stroke-dashoffset="99.53" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span id="risk-probability" class="text-5xl font-black text-on-surface tracking-tighter">0%</span>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase">Probability</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant font-medium">Risk Meter</span>
+<span id="risk-result" class="text-on-surface font-bold">Waiting...</span>
+</div>
+<div class="h-2 bg-surface-container-low rounded-full flex overflow-hidden">
+<div class="w-1/4 bg-primary/40"></div>
+<div class="w-1/4 bg-warning/40"></div>
+<div class="w-2/4 bg-error"></div>
+</div>
+<div class="flex justify-between items-center pt-4 border-t border-outline-variant">
+<span class="text-xs text-on-surface-variant">Model Confidence</span>
+<span id="model-confidence" class="text-xs font-bold">0%</span>
+</div>
+
+<!-- Clinical Guidance -->
+<div class="bg-secondary-container/20 rounded-2xl p-6 border border-secondary-container/30 space-y-4">
+<div class="flex items-center gap-2 text-primary">
+<i class="w-5 h-5" data-lucide="lightbulb"></i>
+<span class="font-bold text-sm">Clinical Guidance</span>
+</div>
+<p
+    id="clinical-guidance"
+    class="text-xs text-on-surface-variant leading-relaxed"
+>
+    Waiting for prediction...
+</p>
+</div>
+</div>
+</div>
+</form>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant py-4 px-8 mt-auto">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="text-xs text-on-surface-variant font-bold">SepsisAI</span>
+<p class="text-[10px] text-on-surface-variant">© 2024 SepsisAI. Built using XGBoost Machine Learning and ICU Time-Series Data.</p>
+<div class="flex gap-6 text-[10px] text-on-surface-variant">
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+<a class="hover:text-primary" href="#">Clinical Validation</a>
+</div>
+</div>
+</footer>
+<script>
+        lucide.createIcons();
+
+        // Calculate Indicators Live
+        const heartRateInput = document.getElementById('heart_rate');
+        const sbpInput = document.getElementById('blood_pressure');
+        const dbpInput = document.getElementById('dbp');
+        const mapDisplay = document.getElementById('map_value');
+        const shockDisplay = document.getElementById('shock_index');
+
+        function updateIndicators() {
+            const hr = parseFloat(heartRateInput.value) || 0;
+            const sbp = parseFloat(sbpInput.value) || 0;
+            const dbp = parseFloat(dbpInput.value) || 0;
+
+            // MAP Calculation: (SBP + 2*DBP) / 3
+            if (sbp > 0 && dbp > 0) {
+                const map = (sbp + (2 * dbp)) / 3;
+                mapDisplay.textContent = map.toFixed(1);
+            } else {
+                mapDisplay.textContent = '---';
+            }
+
+            // Shock Index Calculation: HR / SBP
+            if (hr > 0 && sbp > 0) {
+                const si = hr / sbp;
+                shockDisplay.textContent = si.toFixed(2);
+            } else {
+                shockDisplay.textContent = '---';
+            }
+        }
+
+        [heartRateInput, sbpInput, dbpInput].forEach(input => {
+            input.addEventListener('input', updateIndicators);
+        });
+
+        // Initialize display
+        updateIndicators();
+    </script>
+    <script src="script.js"></script>
+</body></html>
