@@ -48,6 +48,15 @@ print("FEATURES:", feature_columns)
 def home():
     return send_from_directory("../frontend", "index.html")
 
+@app.route("/prediction")
+def prediction():
+    return send_from_directory("../frontend", "prediction.html")
+
+@app.route("/login")
+def login():
+    return send_from_directory("../frontend", "login.html")
+
+
 @app.route("/predict", methods=["POST"])
 def predict():
 
