@@ -3,6 +3,7 @@ from flask_cors import CORS
 import joblib
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
 
 
@@ -27,19 +28,11 @@ CORS(
 # ============================
 
 
-model = joblib.load(
-    "sepsis_xgboost_model.pkl"
-)
+BASE_DIR = Path(__file__).resolve().parent
 
-
-scaler = joblib.load(
-    "robust_scaler.pkl"
-)
-
-
-feature_columns = joblib.load(
-    "feature_columns.pkl"
-)
+model = joblib.load(BASE_DIR / "sepsis_xgboost_model.pkl")
+scaler = joblib.load(BASE_DIR / "robust_scaler.pkl")
+feature_columns = joblib.load(BASE_DIR / "feature_columns.pkl")
 
 
 print("FEATURES:", feature_columns)
