@@ -205,9 +205,8 @@ async function runPrediction() {
             patientData
         );
 
-        const response = await fetch(
-
-            "/predict",
+        const BASE_URL = window.location.origin;
+const response = await fetch(`${BASE_URL}/predict`,
 
             {
                 method: "POST",
@@ -247,6 +246,14 @@ async function runPrediction() {
             probabilityElement.innerHTML =
                 result.probability + "%";
         }
+
+        const circle = document.querySelector('circle.text-error');
+if (circle) {
+    const radius = 88;
+    const circumference = 2 * Math.PI * radius; // 552.92
+    const offset = circumference - (result.probability / 100) * circumference;
+    circle.style.strokeDashoffset = offset;
+}
 
         // =========================
         // Update Risk Text

@@ -44,16 +44,13 @@ print("FEATURES:", feature_columns)
 # ============================
 # Home
 # ============================
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('../frontend', filename)
+
 @app.route("/")
 def home():
-    return send_from_directory("../frontend", "login.html")
-
-@app.route("/prediction.html")
-def prediction():
-    return send_from_directory("../frontend", "prediction.html")
-
-@app.route("/login.html")
-def login():
     return send_from_directory("../frontend", "login.html")
 
 @app.route("/dashboard")
