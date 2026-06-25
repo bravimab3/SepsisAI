@@ -46,7 +46,7 @@ print("FEATURES:", feature_columns)
 # ============================
 @app.route("/")
 def home():
-    return send_from_directory("../frontend", "index.html")
+    return send_from_directory("../frontend", "login.html")
 
 @app.route("/prediction.html")
 def prediction():
@@ -56,6 +56,25 @@ def prediction():
 def login():
     return send_from_directory("../frontend", "login.html")
 
+@app.route("/dashboard")
+def dashboard():
+    return send_from_directory("../frontend", "index.html")
+
+@app.route("/prediction")
+def prediction():
+    return send_from_directory("../frontend", "prediction.html")
+
+@app.route("/login")
+def login():
+    return send_from_directory("../frontend", "login.html")
+
+@app.route('/script.js')
+def serve_js():
+    return send_from_directory('../frontend', 'script.js')
+
+@app.route('/style.css')
+def serve_css():
+    return send_from_directory('../frontend', 'style.css')
 
 @app.route("/predict", methods=["POST"])
 def predict():
